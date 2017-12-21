@@ -7,6 +7,7 @@ __author__ = "Zylanx"
 """
 
 # TODO: Make this all compatible with asyncio
+# TODO: Reformat code to comply with authors code style
 
 from decimal import Decimal, ROUND_DOWN
 
@@ -39,6 +40,13 @@ class Currency():
 	def __repr__(self):
 		return repr(self.value)
 
+	def setPlaces(self, places):
+		""" Change the configured places
+			requantizing the value is up to you to call """
+		self.places = places
+		self.placesDec = Decimal('10') ** -places
+
+	# TODO: Think about changing verification funcs to instead raise errors
 	def isPositiveOrZero(self) -> bool:
 		""" True when zero (+ or -) or a finite number that is not signed """
 		if (self.value.is_zero) or (self.value.is_finite() and not self.value.is_signed()):
@@ -84,7 +92,7 @@ class Currency():
 		self.value = value
 		return value
 
-	def quantize(self, rounding = ROUND_DOWN):
+	def quantize(self, rounding: str = ROUND_DOWN):
 		""" Quantize the value back to the required currency format """
 		self.value = self.value.quantize(self.placesDec, rounding = rounding)
 
