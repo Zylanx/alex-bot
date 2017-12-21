@@ -49,7 +49,7 @@ class Currency():
 	# TODO: Think about changing verification funcs to instead raise errors
 	def isPositiveOrZero(self) -> bool:
 		""" True when zero (+ or -) or a finite number that is not signed """
-		if (self.value.is_zero) or (self.value.is_finite() and not self.value.is_signed()):
+		if (self.value.is_zero()) or (self.value.is_finite() and not self.value.is_signed()):
 			return True
 		else:
 			return False
