@@ -13,6 +13,8 @@ __author__ = "Zylanx"
 # storing that as a float just wrecks that and makes it inaccurate,
 # especially since you _always_ want to be rounding down
 
+# TODO: Make this all compatible with asyncio
+
 from decimal import Decimal, ROUND_DOWN
 
 class CurrencyError(Exception): # TODO: Change to a proper d.py error and handle it
@@ -37,6 +39,12 @@ class Currency():
 
 		if self.isNan():
 			raise CurrencyError() # TODO: Write an exception message
+
+	def __str__(self):
+		return str(self.value)
+
+	def __repr__(self):
+		return repr(self.value)
 
 	def isPositiveOrZero(self) -> bool:
 		""" True when zero (+ or -) or a finite number that is not signed """
