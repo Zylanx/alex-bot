@@ -38,7 +38,7 @@ class CurrencyValidationError(CurrencyError):
 class Currency():
 	""" A currency class that integrates verification as part of the class """
 
-	def __init__(self, value: str = '0.00', places: int = 2):
+	def __init__(self, value: str = '0.00', places: int = 2, initRounding: str = ROUND_DOWN):
 		self._places = places
 		self._placesExp = Decimal('10') ** -places # Gets the exponent for .quantize. 10**-2 = 0.01
 		self._value = Decimal(value)
@@ -48,7 +48,7 @@ class Currency():
 		if self.isNan():
 			raise CurrencyError("Value was NaN")
 
-		self.quantize()
+		self.quantize(initRounding)
 
 	@property
 	def value(self):
